@@ -9,11 +9,15 @@ namespace Microsoft.DotNet.ProjectModel
 {
     public class RuntimeOutputFiles : CompilationOutputFiles
     {
+        private readonly string _runtimeIdentifier;
+
         public RuntimeOutputFiles(string basePath,
             Project project,
             string configuration,
-            NuGetFramework framework) : base(basePath, project, configuration, framework)
+            NuGetFramework framework,
+            string runtimeIdentifier) : base(basePath, project, configuration, framework)
         {
+            _runtimeIdentifier = runtimeIdentifier;
         }
 
         public string Executable
@@ -59,19 +63,20 @@ namespace Microsoft.DotNet.ProjectModel
                 yield return file;
             }
 
+            if (Project.HasRuntimeOutput(Config))
+            {
+                yield return Deps;
+                yield return DepsJson;
+
+                if (!string.IsNullOrEmpty(_runtimeIdentifier))
+                {
+                    yield return Executable;
+                }
+            }
+
             if (File.Exists(Config))
             {
                 yield return Config;
-            }
-
-            if (File.Exists(Deps))
-            {
-                yield return Deps;
-            }
-
-            if (File.Exists(DepsJson))
-            {
-                yield return DepsJson;
             }
         }
     }
