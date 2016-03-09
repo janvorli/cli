@@ -8,5 +8,6 @@ $ProjectsToPack = @(
     "Microsoft.DotNet.ProjectModel.Workspaces",
     "Microsoft.DotNet.InternalAbstractions",
     "Microsoft.Extensions.DependencyModel",
-    "Microsoft.Extensions.Testing.Abstractions"
+    "Microsoft.Extensions.Testing.Abstractions",
+    "dotnet-compile-fsc"
 )
