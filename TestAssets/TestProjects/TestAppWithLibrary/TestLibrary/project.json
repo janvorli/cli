@@ -3,7 +3,8 @@
     "compilationOptions": {
         "nowarn": [ "CS1591" ],
         "xmlDoc": true,
-        "additionalArguments": [ "-highentropyva+" ]
+        "additionalArguments": [ "-highentropyva+" ],
+        "outputName": "TestLibrary"
     },
     "dependencies": {
         "NETStandard.Library": "1.0.0-rc2-23811"
