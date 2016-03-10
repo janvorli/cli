@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Microsoft.Extensions.DependencyModel
 {
-    public class DependencyContextCsvReader
+    public class DependencyContextCsvReader: IDependencyContextReader
     {
         public DependencyContext Read(Stream stream)
         {

@@ -11,9 +11,6 @@ namespace Microsoft.Extensions.DependencyModel
 {
     public class DependencyContext
     {
-        private const string DepsResourceSufix = ".deps.json";
-        private const string DepsFileExtension = ".deps";
-
         private static readonly Lazy<DependencyContext> _defaultContext = new Lazy<DependencyContext>(LoadDefault);
 
         public DependencyContext(string targetFramework,
@@ -74,37 +71,46 @@ namespace Microsoft.Extensions.DependencyModel
 
         public IReadOnlyList<KeyValuePair<string, string[]>> RuntimeGraph { get; }
 
+        public DependencyContext Merge(DependencyContext other)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            return new DependencyContext(
+                TargetFramework,
+                Runtime,
+                IsPortable,
+                CompilationOptions,
+                CompileLibraries.Union(other.CompileLibraries, new LibraryMergeEqualityComparer<CompilationLibrary>()),
+                RuntimeLibraries.Union(other.RuntimeLibraries, new LibraryMergeEqualityComparer<RuntimeLibrary>()),
+                RuntimeGraph.Union(other.RuntimeGraph)
+                );
+        }
+
         private static DependencyContext LoadDefault()
         {
-            var entryAssembly = Assembly.GetEntryAssembly();
-            return Load(entryAssembly);
+            return DependencyContextLoader.Default.Load(Assembly.GetEntryAssembly());
         }
 
         public static DependencyContext Load(Assembly assembly)
         {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException(nameof(assembly));
-            }
-
-            using (var stream = assembly.GetManifestResourceStream(assembly.GetName().Name + DepsResourceSufix))
-            {
-                if (stream != null)
-                {
-                    return new DependencyContextJsonReader().Read(stream);
-                }
-            }
-
-            var depsFile = Path.ChangeExtension(assembly.Location, DepsFileExtension);
-            if (File.Exists(depsFile))
-            {
-                using (var stream = File.OpenRead(depsFile))
-                {
-                    return new DependencyContextCsvReader().Read(stream);
-                }
-            }
 
             return null;
+        }
+
+        private class LibraryMergeEqualityComparer<T>: IEqualityComparer<T> where T:Library
+        {
+            public bool Equals(T x, T y)
+            {
+                return x.Name == y.Name;
+            }
+
+            public int GetHashCode(T obj)
+            {
+                return obj.Name.GetHashCode();
+            }
         }
     }
 }
