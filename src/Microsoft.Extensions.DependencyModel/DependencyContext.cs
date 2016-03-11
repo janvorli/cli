@@ -96,8 +96,7 @@ namespace Microsoft.Extensions.DependencyModel
 
         public static DependencyContext Load(Assembly assembly)
         {
-
-            return null;
+            return DependencyContextLoader.Default.Load(assembly);
         }
 
         private class LibraryMergeEqualityComparer<T>: IEqualityComparer<T> where T:Library

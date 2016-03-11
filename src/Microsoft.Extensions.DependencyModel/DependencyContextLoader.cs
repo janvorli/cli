@@ -44,10 +44,10 @@ namespace Microsoft.Extensions.DependencyModel
         }
 
         public static DependencyContextLoader Default { get; } = new DependencyContextLoader();
-        
+
         internal virtual bool IsEntryAssembly(Assembly assembly)
         {
-            return assembly == Assembly.GetEntryAssembly();
+            return assembly.GetName() == Assembly.GetEntryAssembly().GetName();
         }
 
         internal virtual Stream GetResourceStream(Assembly assembly, string name)

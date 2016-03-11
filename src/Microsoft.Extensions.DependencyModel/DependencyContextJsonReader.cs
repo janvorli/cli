@@ -290,9 +290,4 @@ namespace Microsoft.Extensions.DependencyModel
             public bool Serviceable;
         }
     }
-
-    public interface IDependencyContextReader
-    {
-        DependencyContext Read(Stream stream);
-    }
 }
