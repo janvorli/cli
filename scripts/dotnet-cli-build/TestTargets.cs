@@ -26,12 +26,6 @@ namespace Microsoft.DotNet.Cli.Build
                 Name = "dotnet-hello", 
                 Path = "TestAssets/TestPackages/dotnet-hello/v2/dotnet-hello",
                 IsApplicable = () => true
-            },
-            new TestPackage 
-            { 
-                Name = "dotnet-compile-fsc", 
-                Path = "src/dotnet-compile-fsc",
-                IsApplicable = () => true
             }
         };
 
@@ -92,7 +86,7 @@ namespace Microsoft.DotNet.Cli.Build
 
             var dotnet = DotNetCli.Stage2;
                 
-            dotnet.Restore("--fallbacksource", Dirs.TestPackages)
+            dotnet.Restore("--fallbacksource", Dirs.TestPackages, "--fallbacksource", Dirs.Packages)
                 .WorkingDirectory(Path.Combine(c.BuildContext.BuildDirectory, "TestAssets", "TestProjects"))
                 .Execute().EnsureSuccessful();
                 

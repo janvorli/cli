@@ -10,9 +10,9 @@
         "NuGet.CommandLine.XPlat": "3.4.0-beta-632",
         "System.CommandLine": "0.1.0-e160119-1",
 
-        "Microsoft.DotNet.ProjectModel": { "version": "1.0.0-beta-*", "target": "package" },
-        "Microsoft.DotNet.Compiler.Common": { "version": "1.0.0-beta-*", "target": "package"},
-        "Microsoft.DotNet.Cli.Utils": { "version": "1.0.0-beta-*", "target": "package" },
+        "Microsoft.DotNet.ProjectModel": "1.0.0-*",
+        "Microsoft.DotNet.Compiler.Common": "1.0.0-*",
+        "Microsoft.DotNet.Cli.Utils": "1.0.0-*",
 
         "NETStandard.Library": "1.0.0-rc2-23901",
         "System.Reflection.Metadata": "1.3.0-beta-23901",
@@ -32,7 +32,8 @@
         "netstandardapp1.5": {
             "imports": [
                 "dnxcore50",
-                "portable-net45+win8"
+                "portable-net45+win8",
+                "netstandard1.3"
             ]
         }
     }

@@ -13,7 +13,7 @@
     },
 
     "tools": {
-        "dotnet-compile-fsc": { "version": "1.0.0-*", "target": "package" }
+        "dotnet-compile-fsc": "1.0.0-*"
     },
 
     "frameworks": {
