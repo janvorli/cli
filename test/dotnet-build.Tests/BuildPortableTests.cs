@@ -13,13 +13,12 @@ namespace Microsoft.DotNet.Tools.Builder.Tests
                 .WithLockFiles();
 
             var result = new BuildCommand(
-                projectPath: Path.Combine(testInstance.TestRoot, "PortableApp"),
-                forcePortable: true)
+                projectPath: Path.Combine(testInstance.TestRoot, "PortableApp"))
                 .ExecuteWithCapturedOutput();
 
             result.Should().Pass();
 
-            var outputBase = new DirectoryInfo(Path.Combine(testInstance.TestRoot, "bin", "Debug"));
+            var outputBase = new DirectoryInfo(Path.Combine(testInstance.TestRoot, "PortableApp", "bin", "Debug"));
 
             var netstandardappOutput = outputBase.Sub("netstandard1.5");
 
@@ -27,10 +26,10 @@ namespace Microsoft.DotNet.Tools.Builder.Tests
                 .Exist().And
                 .HaveFiles(new[]
                 {
-                    "BuildTestPortableProject.deps",
-                    "BuildTestPortableProject.deps.json",
-                    "BuildTestPortableProject.dll",
-                    "BuildTestPortableProject.pdb"
+                    "PortableApp.deps",
+                    "PortableApp.deps.json",
+                    "PortableApp.dll",
+                    "PortableApp.pdb"
                 });
         }
     }

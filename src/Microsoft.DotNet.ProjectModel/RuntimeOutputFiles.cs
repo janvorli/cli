@@ -68,8 +68,11 @@ namespace Microsoft.DotNet.ProjectModel
                 yield return Deps;
                 yield return DepsJson;
 
-                if (!string.IsNullOrEmpty(_runtimeIdentifier))
+                // If the project actually has an entry point AND we're doing a standalone build
+                var hasEntryPoint = Project.GetCompilerOptions(targetFramework: null, configurationName: Configuration).EmitEntryPoint ?? false;
+                if (hasEntryPoint && !string.IsNullOrEmpty(_runtimeIdentifier))
                 {
+                    // Yield the executable
                     yield return Executable;
                 }
             }
