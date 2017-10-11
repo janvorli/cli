@@ -35,11 +35,6 @@ namespace Microsoft.DotNet.TestFramework
                 throw new ArgumentNullException(nameof(dotnetCsprojExe));
             }
 
-            if (dotnetProjectJsonExe == null)
-            {
-                throw new ArgumentNullException(nameof(dotnetProjectJsonExe));
-            }
-            
             if (!assetsRoot.Exists)
             {
                 throw new DirectoryNotFoundException($"Directory not found at '{assetsRoot}'");
@@ -50,7 +45,7 @@ namespace Microsoft.DotNet.TestFramework
                 throw new FileNotFoundException("Csproj dotnet executable must exist", dotnetCsprojExe.FullName);
             }
 
-            if (!dotnetProjectJsonExe.Exists)
+            if ((dotnetProjectJsonExe != null) && !dotnetProjectJsonExe.Exists)
             {
                 throw new FileNotFoundException("project.json dotnet executable must exist", dotnetProjectJsonExe.FullName);
             }

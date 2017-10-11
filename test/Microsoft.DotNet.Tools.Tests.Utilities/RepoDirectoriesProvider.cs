@@ -109,10 +109,15 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
 
         private string GetPjDotnetPath()
         {
-            return new DirectoryInfo(Path.Combine(RepoRoot, ".dotnet_stage0PJ"))
-                .GetDirectories().First()
-                .GetFiles("dotnet*").First()
-                .FullName;
+            DirectoryInfo dirInfo = new DirectoryInfo(Path.Combine(RepoRoot, ".dotnet_stage0PJ"));
+            FileInfo[] fileInfos = dirInfo.GetDirectories().First().GetFiles("dotnet*");
+
+            if (fileInfos.Length == 0)
+            {
+                return null;
+            }
+
+            return fileInfos.First().FullName;
         }
     }
 }

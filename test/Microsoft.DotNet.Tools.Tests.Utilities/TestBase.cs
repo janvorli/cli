@@ -49,11 +49,11 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
                 if (s_testAssets == null)
                 {
                     var assetsRoot = Path.Combine(RepoRoot, "TestAssets");
-
+                    var pjDotnet = new RepoDirectoriesProvider().PjDotnet;
                     s_testAssets = new TestAssets(
                         new DirectoryInfo(assetsRoot),
                         new FileInfo(new Muxer().MuxerPath),
-                        new FileInfo(new RepoDirectoriesProvider().PjDotnet)); 
+                        (pjDotnet == null) ? null : new FileInfo(pjDotnet)); 
                 }
 
                 return s_testAssets;

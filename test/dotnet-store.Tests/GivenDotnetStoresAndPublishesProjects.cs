@@ -17,7 +17,7 @@ namespace Microsoft.DotNet.Cli.Publish.Tests
         private static string _frameworkVersion = TestAssetInstance.CurrentRuntimeFrameworkVersion;
         private static string _arch = RuntimeEnvironment.RuntimeArchitecture.ToLowerInvariant();
 
-        [Fact]
+        [DisableForRIDFact("rhel.6-x64")]
         public void ItPublishesARunnablePortableApp()
         {
             var testAppName = "NewtonSoftDependentProject";
@@ -108,7 +108,7 @@ namespace Microsoft.DotNet.Cli.Publish.Tests
                     "    path: 'lib/netstandard1.3/NuGet.Configuration.dll'");
         }
 
-        [Fact]
+        [DisableForRIDFact("rhel.6-x64")]
         public void ItPublishesAnAppWithMultipleProfiles()
         {
             var testAppName = "MultiDependentProject";

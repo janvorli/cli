@@ -16,7 +16,7 @@ namespace Microsoft.DotNet.Cli.Publish.Tests
 {
     public class GivenDotnetPublishPublishesProjects : TestBase
     {
-        [Fact]
+        [DisableForRIDFact("rhel.6-x64")]
         public void ItPublishesARunnablePortableApp()
         {
             var testAppName = "MSBuildTestApp";
@@ -95,7 +95,7 @@ namespace Microsoft.DotNet.Cli.Publish.Tests
                 .And.HaveStdOutContaining("project.assets.json");
         }
 
-        [Fact]
+        [DisableForRIDFact("rhel.6-x64")]
         public void ItPublishesARunnableSelfContainedApp()
         {
             var testAppName = "MSBuildTestApp";
@@ -130,7 +130,7 @@ namespace Microsoft.DotNet.Cli.Publish.Tests
                      .And.HaveStdOutContaining("Hello World");
         }
 
-        [Fact]
+        [DisableForRIDFact("rhel.6-x64")]
         public void ItPublishesARidSpecificAppSettingSelfContainedToTrue()
         {
             var testAppName = "MSBuildTestApp";
@@ -146,7 +146,7 @@ namespace Microsoft.DotNet.Cli.Publish.Tests
                      .And.HaveStdOutContaining("Hello World");
         }
 
-        [Fact]
+        [DisableForRIDFact("rhel.6-x64")] 
         public void ItPublishesARidSpecificAppSettingSelfContainedToFalse()
         {
             var testAppName = "MSBuildTestApp";
